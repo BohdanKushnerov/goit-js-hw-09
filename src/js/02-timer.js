@@ -56,14 +56,7 @@ class Timer  {
     
     const time = this.convertMs(selectedTime);
     this.onTextChange(time);
-
-    // const { days, hours, minutes, seconds } = this.convertMs(selectedTime);
-    console.log(time)
-
-    // daysRef.textContent = `${days}`;
-    // hoursRef.textContent = `${hours}`;
-    // minutesRef.textContent = `${minutes}`;
-    // secondsRef.textContent = `${seconds}`;
+    // console.log(time)
 
       if (selectedTime <= 1000) {
         this.stop();

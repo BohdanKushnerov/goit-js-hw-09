@@ -1,24 +1,27 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
+const formRef = document.querySelector('.form');
 const firstDelayRef = document.querySelector('input[name = delay]');
 const delayStepRef = document.querySelector('input[name = step]');
 const amountRef = document.querySelector('input[name = amount]');
-const btnRef = document.querySelector('button[type = submit]');
+// const btnRef = document.querySelector('button[type = submit]');
 
-let firstDelay = 2000;
-const delayStep = 1000;
-let amount = 6;
-// let value = 0;
-
-btnRef.addEventListener('click', onStart);
+formRef.addEventListener('submit', onStart);
 
 function onStart(e) {
   e.preventDefault();
 
+  const firstDelay = Number(firstDelayRef.value);
+  const delayStep = Number(delayStepRef.value);
+  const amount = Number(amountRef.value);
+
   for (let i = 0; i < amount; i += 1) {
+    const step = i + 1;
+    const currentDelay = firstDelay + delayStep * i
+
     setTimeout(() => {
-      waitFor(i + 1, firstDelay + delayStep * i);
-    }, firstDelay + delayStep * i);
+      waitForRun(step, currentDelay);
+    }, currentDelay);
   }
 }
 
@@ -34,7 +37,7 @@ function createPromise(position, delay) {
   });
 }
 
-function waitFor(position, delay) {
+function waitForRun(position, delay) {
   createPromise(position, delay)
     .then(({ position, delay }) => {
       Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
@@ -43,13 +46,3 @@ function waitFor(position, delay) {
       Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
     });
 }
-
-// createPromise(position, delay)
-//   .then(({ position, delay }) => {
-//     console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-//   })
-//   .catch(({ position, delay }) => {
-//     console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-//   });
-
-// ----------------------------------------------------
