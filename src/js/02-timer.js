@@ -44,6 +44,7 @@ class Timer  {
 
   start() {
     btnRef.disabled = true;
+    myInput.disabled = true;
     if(this.isActive) {
       return
     }
@@ -66,6 +67,7 @@ class Timer  {
 
   stop() {
     btnRef.disabled = false;
+    myInput.disabled = false;
     this.isActive = false;
 
     const time = this.convertMs(0);
